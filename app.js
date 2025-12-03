@@ -1,0 +1,20 @@
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const APP_PORT = process.env.APP_PORT;
+const homeRouter = require('./app/routers/homeRouter');
+const clienteRouter = require('./app/routers/cadastros/clienteRouter');
+
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+app.set('views', './app/views');
+app.set('view engine', 'ejs');
+
+app.use('/', homeRouter);
+app.use('/', clienteRouter);
+
+app.listen(APP_PORT, function(){
+    console.log(`app online in http://localhost:${APP_PORT}`);
+});

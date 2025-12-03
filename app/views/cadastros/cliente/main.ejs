@@ -1,0 +1,58 @@
+<div class="container text-center">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">INICIO</a></li>
+            <li class="breadcrumb-item"><a>LISTA DE CLIENTE</a></li>
+            <li class="breadcrumb-item"><a href="/cliente/adicionar">NOVO CLIENTE <img src="/img/add-24.png" alt=""></a>
+            </li>
+        </ol>
+    </nav>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container">
+            <form class="d-flex" role="search" action="/cliente/search" method="post">
+                <input class="form-control me-2" type="search" placeholder="digite o nome do cliente" name="search"
+                    aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">PROCURAR</button>
+                <a href="/cliente" class="btn btn-outline-danger" type="submit">LIMPAR</a>
+            </form>
+            
+        </div>
+    </nav>
+</div>
+<% if(msg !=null){ %>
+    <script>
+        getNotify("<%= msg.title %>", "<%= msg.text %>", "<%= msg.type %>", "<%= msg.position %>", "<%= msg.duration %>")
+    </script>
+    <%}%>
+
+        <main class="container">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>CLIENTE</th>
+                        <th>OPÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(data.arrData !=null) { data.arrData.forEach(cliente=>
+                        {%>
+                        <tr>
+                            <td>
+                                <%= cliente.idCliente%>
+                            </td>
+                            <td>
+                                <%= cliente.nomeCliente%>
+                            </td>
+                        </tr>
+                        <%}) } %>
+                </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination" id="pagination">   
+                    <script>
+                        pagination("<%= data.countClientes %>", "cliente")
+                    </script>
+                </ul>
+            </nav>
+        </main>
