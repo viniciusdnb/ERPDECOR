@@ -7,7 +7,7 @@ function pagination(countRowData, url){
         li.setAttribute("class", "page-item");
         var a = document.createElement("a");
         a.setAttribute("class", "page-link");
-        a.setAttribute("href", `${url}/${i}`);
+        a.setAttribute("href", `${url}/page?num=${i}`);
         a.innerText = i
         li.appendChild(a);
         element.appendChild(li)

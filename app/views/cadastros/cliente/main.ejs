@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">INICIO</a></li>
             <li class="breadcrumb-item"><a>LISTA DE CLIENTE</a></li>
-            <li class="breadcrumb-item"><a href="/cliente/adicionar">NOVO CLIENTE <img src="/img/add-24.png" alt=""></a>
+            <li class="breadcrumb-item"><a href="/cliente/new">NOVO CLIENTE <img src="/img/add-24.png" alt=""></a>
             </li>
         </ol>
     </nav>
@@ -15,11 +15,11 @@
                 <button class="btn btn-outline-success" type="submit">PROCURAR</button>
                 <a href="/cliente" class="btn btn-outline-danger" type="submit">LIMPAR</a>
             </form>
-            
+
         </div>
     </nav>
 </div>
-<% if(msg !=null){ %>
+<% if(msg !=null){  %>
     <script>
         getNotify("<%= msg.title %>", "<%= msg.text %>", "<%= msg.type %>", "<%= msg.position %>", "<%= msg.duration %>")
     </script>
@@ -44,15 +44,21 @@
                             <td>
                                 <%= cliente.nomeCliente%>
                             </td>
+                            <td>
+                                <a href="/cliente/edit?id=<%= cliente.idCliente %>">
+                                    <img src="/img/edit-24.png" alt="">
+                                </a>
+                                <a id="delete"
+                                    onclick='perguntar("<%= cliente.idCliente %>", "<%= cliente.nomeCliente %>","cliente")'
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    href="<%= cliente.idCliente %>">
+                                    <img src="/img/trash-24.png" alt="">
+                                </a>
+                            </td>
                         </tr>
                         <%}) } %>
                 </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination" id="pagination">   
-                    <script>
-                        pagination("<%= data.countClientes %>", "cliente")
-                    </script>
-                </ul>
-            </nav>
         </main>
+        
+<%- include('../../layout/modals/modalDelete') %>

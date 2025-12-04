@@ -1,0 +1,31 @@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">ATENÇÃO</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Deseja realmente exluir ?
+        <p id="text-element"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">FECHAR</button>
+        <a id="link-delete-elemet" class="btn btn-danger">SIM</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+//editar os elementos
+  
+  function perguntar(id, value, model) {
+    var text = document.getElementById("text-element");
+    text.textContent = value;
+    document.getElementById("link-delete-elemet").setAttribute('href', `/${model}/delete?id=${id}`)
+  }
+
+ 
+</script>

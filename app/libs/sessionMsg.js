@@ -1,5 +1,5 @@
 
-
+//funcao para criar e apagar a variavel de mensagem na sessao
 module.exports = {
     setMessage: function(req, msg){
         if(!req.session.msg){
