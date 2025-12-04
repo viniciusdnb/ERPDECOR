@@ -2,24 +2,24 @@ const clienteModel = require('../../model/models/cadastros/clienteModel');
 const msgNotify = require('../../libs/msgNotify');
 const { Op } = require('sequelize');
 const sessionMsg = require('../../libs/sessionMsg');
-let dataMsg = null;
+
 
 module.exports = {
     index: async function (req, res) {
 
         let data = null;
-        let arrClientes = null;
+        let arrData = null;
         try {
             let clientes = await clienteModel.findAll({ order: [['nomeCliente', 'ASC']] });
            
-            arrClientes = JSON.parse(JSON.stringify(clientes, null));
+            arrData = JSON.parse(JSON.stringify(clientes, null));
 
-            if (arrClientes.length == 0) {
+            if (arrData.length == 0) {
 
                 sessionMsg.setMessage(req, msgNotify.getMsgWarning("Atenção", "nao há clientes cadastrado"));
 
             } else {
-                data = arrClientes;
+                data = arrData;
             }
 
         } catch (error) {
@@ -37,7 +37,7 @@ module.exports = {
     search: async function (req, res) {
 
         let data = null;
-        let arrClientes = null;
+        let arrData = null;
         try {
             let clientes = await clienteModel.findAll({
                 where: {
@@ -47,14 +47,14 @@ module.exports = {
                     ]
                 }
             });
-            arrClientes = JSON.parse(JSON.stringify(clientes));
+            arrData = JSON.parse(JSON.stringify(clientes));
 
-            if (arrClientes.length == 0) {
+            if (arrData.length == 0) {
 
                 sessionMsg.setMessage(req, msgNotify.getMsgWarning("Atenção", "não a clientes cadastrado de acordo com a busca"));
 
             } else {
-                data = arrClientes;
+                data = arrData;
             }
 
 

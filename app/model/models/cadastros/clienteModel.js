@@ -10,6 +10,7 @@ const clienteModel = connect.define(
         },
         nomeCliente:{
             type: DataTypes.CHAR,
+            allowNull: false
         }
     },
     {
