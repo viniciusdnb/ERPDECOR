@@ -3,14 +3,16 @@ const clienteRouter = express.Router();
 const { checkSchema } = require('express-validator');
 const clienteController = require('../../controllers/cadastros/clienteController');
 const msgNotify = require('../../libs/msgNotify');
-const verifyErrorValidator = require('../../libs/verifyErrorValidator');
+const verifyErrorValidator = require('../../libs/auth/verifyErrorValidator');
+const searchValidator = require('../../libs/auth/checkSchema/searchValidator');
 
 clienteRouter.get('/cliente', function (req, res) {
     clienteController.index(req, res);
 });
 
 clienteRouter.post('/cliente/search',
-    checkSchema({
+    searchValidator,
+    /*checkSchema({
         search: {
             in: ['body'],
             escape: true,
@@ -27,7 +29,7 @@ clienteRouter.post('/cliente/search',
             }
 
         }
-    }),
+    }),*/
     function (req, res) {
         /*let errorResult = validationResult(req);
         if (!errorResult.isEmpty()) {

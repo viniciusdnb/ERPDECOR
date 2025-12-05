@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const msgNotify = require('./msgNotify');
+const msgNotify = require('../msgNotify');
 //funcao que padrao para verificar se ha erros na validação e gera mensagem na sessao e retorna true se contiver erro
 module.exports = {
     getResult: function (req) {

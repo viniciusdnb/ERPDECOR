@@ -1,15 +1,41 @@
-const familiaProdutoModel = require('../../model/models/cadastros/familiaProdutoModel');
-const msgNotify = require('../../libs/msgNotify');
 const { Op } = require('sequelize');
-const sessionMsg = require('../../libs/sessionMsg');
 const simpleControl = require('../../libs/controller/simpleControl');
+let options = {
+    pathModelView: 'cadastros',
+    nameModel: 'familiaProduto'
+    
+}
 module.exports = {
-    index: async function(req, res){
-        simpleControl.index(req, res, {pathModelView: 'cadastros', nameModel: 'familiaProduto', fileNameView: 'main' });
+    index: async function (req, res) {
+        options.fileNameView = 'main';
+        simpleControl.index(req, res, options);
     },
-    search: async function(req, res){},
-    create: async function(req, res){},
-    edit: async function (req, res){},
-    update: async function (req, res){},
-    delete: async function (req, res){}
+    search: async function (req, res) {
+        options.fileNameView = 'main';
+        options.queryOptions = {
+                where: {
+                    [Op.or]: [
+                        { id_tipo_produto: { [Op.substring]: req.body.search } },
+                        { nome_tipo_produto: { [Op.substring]: req.body.search } }
+                    ]
+                }
+            }
+        /*await simpleControl.index(req, res, {
+            pathModelView: 'cadastros',
+            nameModel: 'familiaProduto',
+            fileNameView: 'main',
+            queryOptions: {
+                where: {
+                    [Op.or]: [
+                        { id_tipo_produto: { [Op.substring]: req.body.search } },
+                        { nome_tipo_produto: { [Op.substring]: req.body.search } }
+                    ]
+                }
+            }
+        });*/
+    },
+    create: async function (req, res) { },
+    edit: async function (req, res) { },
+    update: async function (req, res) { },
+    delete: async function (req, res) { }
 }
