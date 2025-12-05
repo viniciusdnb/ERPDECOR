@@ -21,10 +21,10 @@
 <script>
 //editar os elementos
   
-  function perguntar(id, value, model) {
+  function perguntar(id, value, router) {
     var text = document.getElementById("text-element");
     text.textContent = value;
-    document.getElementById("link-delete-elemet").setAttribute('href', `/${model}/delete?id=${id}`)
+    document.getElementById("link-delete-elemet").setAttribute('href', `/${router}/delete?id=${id}`)
   }
 
  

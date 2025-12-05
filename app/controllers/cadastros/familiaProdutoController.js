@@ -2,9 +2,11 @@ const familiaProdutoModel = require('../../model/models/cadastros/familiaProduto
 const msgNotify = require('../../libs/msgNotify');
 const { Op } = require('sequelize');
 const sessionMsg = require('../../libs/sessionMsg');
-
+const simpleControl = require('../../libs/controller/simpleControl');
 module.exports = {
-    index: async function(req, res){},
+    index: async function(req, res){
+        simpleControl.index(req, res, {pathModelView: 'cadastros', nameModel: 'familiaProduto', fileNameView: 'main' });
+    },
     search: async function(req, res){},
     create: async function(req, res){},
     edit: async function (req, res){},

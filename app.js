@@ -5,6 +5,7 @@ const session = require('express-session');
 const APP_PORT = process.env.APP_PORT;
 const homeRouter = require('./app/routers/homeRouter');
 const clienteRouter = require('./app/routers/cadastros/clienteRouter');
+const familiaProdutoRouter = require('./app/routers/cadastros/familiaProdutoRouter');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -23,6 +24,7 @@ app.set('view engine', 'ejs');
 
 app.use('/', homeRouter);
 app.use('/', clienteRouter);
+app.use('/', familiaProdutoRouter);
 
 app.listen(APP_PORT, function(){
     console.log(`app online in http://localhost:${APP_PORT}`);

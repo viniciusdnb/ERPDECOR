@@ -1,0 +1,39 @@
+<div class="container text-center">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">INICIO</a></li>
+            <li class="breadcrumb-item"><a href="/familia-produto">FAMILIA DE PRODUTOS</a></li>
+            <li class="breadcrumb-item"><a>EDITAR FAMILIA</a></li>
+            <li class="breadcrumb-item"><a href="/familia-produto/new">NOVA FAMILIA <img src="img/add-24.png" alt=""></a>
+            </li>
+        </ol>
+    </nav>
+</div>
+<main class="container">
+    <% 
+   
+    var arrFamilia= data.arrData;
+         arrFamilia.forEach(el=> {
+            familia = el;
+        });
+
+        %>
+        <form action="/familia-produto/edit/" method="post" class="row g-3">
+            <input type="hidden" value="<%=familia.id_familia_produto%>" name="id_familia_produto">
+            
+                <div class="col">
+                    <label class="form-label">NOME FAMILIA</label>
+                    <input type="text" class="form-control" value="<%=familia.nome_familia%>" name="nome_familia">
+                </div>
+                <div class="row g-3">
+                    <div class="col-1">
+                         <input type="submit" class="btn btn-success" value="SALVAR">
+                    </div>
+                    <div class="col-1">
+                         <a class="btn btn-secondary" href="/familia-produto" >CANCELAR</a>
+                    </div>                   
+                </div>
+            
+        </form>
+
+</main>
