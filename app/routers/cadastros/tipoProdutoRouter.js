@@ -1,37 +1,37 @@
 const express = require('express');
-const familiaProdutoRouter = express.Router();
+const tipoProdutoRouter = express.Router();
+const tipoProdutoController = require('../../controllers/cadastros/tipoProdutoController');
 const { checkSchema } = require('express-validator');
-const familiaProdutoController = require('../../controllers/cadastros/familiaProdutoController');
-const msgNotify = require('../../libs/msgNotify');
 const verifyErrorValidator = require('../../libs/auth/verifyErrorValidator');
 const searchValidator = require('../../libs/auth/checkSchema/searchValidator');
 const idQueryValidator = require('../../libs/auth/checkSchema/idQueryValidator');
 
-familiaProdutoRouter.get('/familiaProduto', 
-    function(req, res){
-    familiaProdutoController.index(req, res);
-});
+tipoProdutoRouter.get('/tipoProduto',
+    function (req, res) {
+        tipoProdutoController.index(req, res);
+    }
+);
 
-familiaProdutoRouter.post('/familiaProduto/search', 
+tipoProdutoRouter.post('/tipoProduto/search',
     searchValidator,
-    function(req, res){
-        if(verifyErrorValidator.getResult(req)){
-            return familiaProdutoController.index(req, res);
+    function (req, res) {
+        if (verifyErrorValidator.getResult(req)) {
+            return tipoProdutoController.index(req, res);
         }
 
-        familiaProdutoController.search(req, res);
-});
+        tipoProdutoController.search(req, res);
+    }
+);
 
-familiaProdutoRouter.get('/familiaProduto/new', 
-    function(req, res){
-    res.render('cadastros/familiaProduto/index',
-        {fileName:'new'}
-    );
-});
+tipoProdutoRouter.get('/tipoProduto/new',
+    function (req, res) {
+        res.render('cadastros/tipoProduto/index', { fileName: 'new' });
+    }
+);
 
-familiaProdutoRouter.post('/familiaProduto/new',
+tipoProdutoRouter.post('/tipoProduto/new',
     checkSchema({
-        nome_familia: {
+        nome_tipo_produto: {
             in: ['body'],
             escape: true,
             trim: true,
@@ -49,25 +49,27 @@ familiaProdutoRouter.post('/familiaProduto/new',
     }),
     function(req, res){
         if(verifyErrorValidator.getResult(req)){
-            return familiaProdutoController.index(req, res);
+            return tipoProdutoController.index(req, res);
         }
 
-        familiaProdutoController.create(req, res);
-});
+        tipoProdutoController.create(req, res);
+    }
+);
 
-familiaProdutoRouter.get('/familiaProduto/edit', 
+tipoProdutoRouter.get('/tipoProduto/edit',
     idQueryValidator,
     function(req, res){
         if(verifyErrorValidator.getResult(req)){
-            return familiaProdutoController.index(req, res);
+            return tipoProdutoController.index(req, res);
         }
 
-        familiaProdutoController.edit(req, res);
-});
+        tipoProdutoController.edit(req, res);
+    }
+);
 
-familiaProdutoRouter.post('/familiaProduto/edit',
+tipoProdutoRouter.post('/tipoProduto/edit', 
     checkSchema({
-        nome_familia: {
+        nome_tipo_produto: {
             in: ['body'],
             escape: true,
             trim: true,
@@ -82,7 +84,7 @@ familiaProdutoRouter.post('/familiaProduto/edit',
                 errorMessage: "quantidade de caracter não permitido"
             }
         },
-        id_familia_produto: {
+        id_tipo_produto: {
             in: ['body'],
             trim: true,
             escape: true,
@@ -96,22 +98,23 @@ familiaProdutoRouter.post('/familiaProduto/edit',
     }),
     function(req, res){
         if(verifyErrorValidator.getResult(req)){
-            return familiaProdutoController.index(req, res);
+            return tipoProdutoController.index(req, res);
         }
 
-        familiaProdutoController.update(req, res);
-});
+        tipoProdutoController.update(req, res);
+    }
+);
 
-familiaProdutoRouter.get('/familiaProduto/delete', 
+tipoProdutoRouter.get('/tipoProduto/delete',
     idQueryValidator,
     function(req, res){
         if(verifyErrorValidator.getResult(req)){
-            return familiaProdutoController.index(req, res);
+            return tipoProdutoController.index(req, res);
         }
 
-        familiaProdutoController.delete(req, res);
-});
+        tipoProdutoController.delete(req, res);
+    }
+)
 
 
-
-module.exports = familiaProdutoRouter;
+module.exports = tipoProdutoRouter;

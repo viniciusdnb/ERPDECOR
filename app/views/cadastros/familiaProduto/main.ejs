@@ -3,17 +3,17 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">INICIO</a></li>
             <li class="breadcrumb-item"><a>FAMILIA DE PRODUTOS</a></li>
-            <li class="breadcrumb-item"><a href="/familia-produto/new">NOVA FAMILIA <img src="/img/add-24.png" alt=""></a>
+            <li class="breadcrumb-item"><a href="/familiaProduto/new">NOVA FAMILIA <img src="/img/add-24.png" alt=""></a>
             </li>
         </ol>
     </nav>
     <nav class="navbar bg-body-tertiary">
         <div class="container">
-            <form class="d-flex" role="search" action="/familia-produto/search" method="post">
+            <form class="d-flex" role="search" action="/familiaProduto/search" method="post">
                 <input class="form-control me-2" type="search" placeholder="digite o nome do familia" name="search"
                     aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit">PROCURAR</button>
-                <a href="/familia-produto" class="btn btn-outline-danger" type="submit">LIMPAR</a>
+                <a href="/familiaProduto" class="btn btn-outline-danger" type="submit">LIMPAR</a>
             </form>
 
         </div>
@@ -45,11 +45,11 @@
                                 <%= familia.nome_familia%>
                             </td>
                             <td>
-                                <a href="/familia-produto/edit?id=<%= familia.id_familia_produto %>">
+                                <a href="/familiaProduto/edit?id=<%= familia.id_familia_produto %>">
                                     <img src="/img/edit-24.png" alt="">
                                 </a>
                                 <a id="delete"
-                                    onclick='perguntar("<%= familia.id_familia_produto %>", "<%= familia.nome_familia %>","familia-produto")'
+                                    onclick='perguntar("<%= familia.id_familia_produto %>", "<%= familia.nome_familia %>","familiaProduto")'
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                     href="<%= familia.id_familia_produto %>">
                                     <img src="/img/trash-24.png" alt="">

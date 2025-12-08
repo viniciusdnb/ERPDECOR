@@ -17,4 +17,6 @@ const tipoProdutoModel = connect.define(
         timestamps: false,
         freezeTableName: true
     }
-)
+);
+
+module.exports = tipoProdutoModel;

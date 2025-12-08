@@ -2,18 +2,18 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">INICIO</a></li>
-            <li class="breadcrumb-item"><a>LISTA DE CLIENTE</a></li>
-            <li class="breadcrumb-item"><a href="/cliente/new">NOVO CLIENTE <img src="/img/add-24.png" alt=""></a>
+            <li class="breadcrumb-item"><a>TIPO DE PRODUTOS</a></li>
+            <li class="breadcrumb-item"><a href="/tipoProduto/new">NOVA TIPO <img src="/img/add-24.png" alt=""></a>
             </li>
         </ol>
     </nav>
     <nav class="navbar bg-body-tertiary">
         <div class="container">
-            <form class="d-flex" role="search" action="/cliente/search" method="post">
-                <input class="form-control me-2" type="search" placeholder="digite o nome do cliente" name="search"
+            <form class="d-flex" role="search" action="/tipoProduto/search" method="post">
+                <input class="form-control me-2" type="search" placeholder="digite o nome do familia" name="search"
                     aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit">PROCURAR</button>
-                <a href="/cliente" class="btn btn-outline-danger" type="submit">LIMPAR</a>
+                <a href="/tipoProduto" class="btn btn-outline-danger" type="submit">LIMPAR</a>
             </form>
 
         </div>
@@ -30,31 +30,28 @@
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
-                        <th>CLIENTE</th>
+                        <th>TIPO</th>
                         <th>OPÇÕES</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% 
-                    if(data.arrData !== null) { 
-                        
-                        data.arrData.forEach(cliente=>
+                    <% if(data.arrData !=null) { data.arrData.forEach(tipo=>
                         {%>
                         <tr>
                             <td>
-                                <%= cliente.idCliente%>
+                                <%= tipo.id_tipo_produto%>
                             </td>
                             <td>
-                                <%= cliente.nomeCliente%>
+                                <%= tipo.nome_tipo_produto%>
                             </td>
                             <td>
-                                <a href="/cliente/edit?id=<%= cliente.idCliente %>">
+                                <a href="/tipoProduto/edit?id=<%= tipo.id_tipo_produto %>">
                                     <img src="/img/edit-24.png" alt="">
                                 </a>
                                 <a id="delete"
-                                    onclick='perguntar("<%= cliente.idCliente %>", "<%= cliente.nomeCliente %>","cliente")'
+                                    onclick='perguntar("<%= tipo.id_tipo_produto %>", "<%= tipo.nome_tipo_produto %>","tipoProduto")'
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    href="<%= cliente.idCliente %>">
+                                    href="<%= tipo.id_tipo_produto %>">
                                     <img src="/img/trash-24.png" alt="">
                                 </a>
                             </td>
@@ -62,10 +59,6 @@
                         <%}) } %>
                 </tbody>
             </table>
-            <div class="container text-center">
-                <button class="btn btn-primary">CARREGAR MAIS</button>
-            </div>
-            
         </main>
         
 <%- include('../../layout/modals/modalDelete') %>

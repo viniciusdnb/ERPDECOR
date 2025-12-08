@@ -2,9 +2,9 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="/familia-produto">FAMILIA DE PRODUTOS</a></li>
+            <li class="breadcrumb-item"><a href="/familiaProduto">FAMILIA DE PRODUTOS</a></li>
             <li class="breadcrumb-item"><a>EDITAR FAMILIA</a></li>
-            <li class="breadcrumb-item"><a href="/familia-produto/new">NOVA FAMILIA <img src="img/add-24.png" alt=""></a>
+            <li class="breadcrumb-item"><a href="/familiaProduto/new">NOVA FAMILIA <img src="img/add-24.png" alt=""></a>
             </li>
         </ol>
     </nav>
@@ -18,7 +18,7 @@
         });
 
         %>
-        <form action="/familia-produto/edit/" method="post" class="row g-3">
+        <form action="/familiaProduto/edit/" method="post" class="row g-3">
             <input type="hidden" value="<%=familia.id_familia_produto%>" name="id_familia_produto">
             
                 <div class="col">
@@ -30,7 +30,7 @@
                          <input type="submit" class="btn btn-success" value="SALVAR">
                     </div>
                     <div class="col-1">
-                         <a class="btn btn-secondary" href="/familia-produto" >CANCELAR</a>
+                         <a class="btn btn-secondary" href="/familiaProduto" >CANCELAR</a>
                     </div>                   
                 </div>
             

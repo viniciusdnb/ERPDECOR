@@ -30,7 +30,7 @@ module.exports = {
            
             return { result: result, data: data }
         } catch (error) {
-            
+            console.log(error)
             result = false;
             return { result: result, data: data }
         }

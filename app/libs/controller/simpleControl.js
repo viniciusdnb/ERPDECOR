@@ -56,7 +56,7 @@ module.exports = {
             );
         } else {
             //se retornar false ouve erro ao fazer a consulta
-            sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "Erro desconhecido favor contatar o administrador"));
+            sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "Erro  desconhecido favor contatar o administrador"));
             return this.render(req, res,
                 options.pathModelView,
                 options.nameModel,
@@ -82,12 +82,14 @@ module.exports = {
 
         if (queryResult.result) {
             sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", `${options.nameModel} cadastrado com sucesso`));
+            
             return res.redirect(`/${options.nameModel}`);
         } else {
             sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "Erro desconhecido favor contatar o administrador"));
             return res.redirect(`/${options.nameModel}`);
         }
 
+        
        
     },
     /**

@@ -5,6 +5,8 @@ const clienteController = require('../../controllers/cadastros/clienteController
 const msgNotify = require('../../libs/msgNotify');
 const verifyErrorValidator = require('../../libs/auth/verifyErrorValidator');
 const searchValidator = require('../../libs/auth/checkSchema/searchValidator');
+const idQueryValidator = require('../../libs/auth/checkSchema/idQueryValidator');
+
 
 clienteRouter.get('/cliente', function (req, res) {
     clienteController.index(req, res);
@@ -12,40 +14,7 @@ clienteRouter.get('/cliente', function (req, res) {
 
 clienteRouter.post('/cliente/search',
     searchValidator,
-    /*checkSchema({
-        search: {
-            in: ['body'],
-            escape: true,
-            trim: true,
-            notEmpty: {
-                errorMessage: "o campo de busca é obrigatorio"
-            },
-            isString: {
-                errorMessage: "dados invalido"
-            },
-            isLength: {
-                options: { min: 1 },
-                errorMessage: "texto muito curto"
-            }
-
-        }
-    }),*/
     function (req, res) {
-        /*let errorResult = validationResult(req);
-        if (!errorResult.isEmpty()) {
-            let arrMsgError = errorResult.array();
-            let msg = "";
-            arrMsgError.forEach(msgError => {
-                msg += msgError.msg + " - ";
-            });
-
-            if (!req.session.msg) {
-                req.session.msg = msgNotify.getMsgWarning("Atenção", msg)
-            }
-            
-            clienteController.index(req, res);
-            return;
-        }*/
 
         if (verifyErrorValidator.getResult(req)) {
             return clienteController.index(req, res);
@@ -75,6 +44,10 @@ clienteRouter.post('/cliente/new',
                     max: 50
                 },
                 errorMessage: "quantidade de caracter não permitido"
+            },
+            matches: {
+                options: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ]+$/,
+                errorMessage: 'O campo deve conter apenas letras, números e espaços'
             }
         }
     }),
@@ -87,19 +60,7 @@ clienteRouter.post('/cliente/new',
     });
 
 clienteRouter.get('/cliente/edit',
-    checkSchema({
-        id: {
-            in: ["query"],
-            trim: true,
-            escape: true,
-            notEmpty: {
-                errorMessage: "não é permitido id vazio"
-            },
-            isNumeric: {
-                errorMessage: "é permitido somente numeros"
-            }
-        }
-    }),
+    idQueryValidator,
     function (req, res) {
         if (verifyErrorValidator.getResult(req)) {
             return clienteController.index(req, res);
@@ -109,46 +70,29 @@ clienteRouter.get('/cliente/edit',
         clienteController.edit(req, res);
     });
 
-clienteRouter.post('/cliente/edit', checkSchema({
-    nome_cliente: {
-        in: ['body'],
-        escape: true,
-        trim: true,
-        notEmpty: {
-            errorMessage: "campo não é permitido vazio"
-        },
-        isLength: {
-            options: {
-                min: 4,
-                max: 50
-            },
-            errorMessage: "quantidade de caracter não permitido"
-        }
-    },
-    id_cliente: {
-        in: ['body'],
-        trim: true,
-        escape: true,
-        notEmpty: {
-            errorMessage: "não é permitido id vazio"
-        },
-        isNumeric: {
-            errorMessage: "é permitido somente numeros"
-        }
-    }
-}),
-    function (req, res) {
-        if (verifyErrorValidator.getResult(req)) {
-            return clienteController.index(req, res);
-        }
-
-        clienteController.update(req, res);
-    });
-
-clienteRouter.get('/cliente/delete',
+clienteRouter.post('/cliente/edit',
     checkSchema({
-        id: {
-            in: ["query"],
+        nome_cliente: {
+            in: ['body'],
+            escape: true,
+            trim: true,
+            notEmpty: {
+                errorMessage: "campo não é permitido vazio"
+            },
+            isLength: {
+                options: {
+                    min: 4,
+                    max: 50
+                },
+                errorMessage: "quantidade de caracter não permitido"
+            },
+            matches: {
+                options: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ]+$/,
+                errorMessage: 'O campo deve conter apenas letras, números e espaços'
+            }
+        },
+        id_cliente: {
+            in: ['body'],
             trim: true,
             escape: true,
             notEmpty: {
@@ -158,10 +102,19 @@ clienteRouter.get('/cliente/delete',
                 errorMessage: "é permitido somente numeros"
             }
         }
-
     }),
-    function (req, res) { 
-        if(verifyErrorValidator.getResult(req)){
+    function (req, res) {
+        if (verifyErrorValidator.getResult(req)) {
+            return clienteController.index(req, res);
+        }
+
+        clienteController.update(req, res);
+    });
+
+clienteRouter.get('/cliente/delete',
+    idQueryValidator,
+    function (req, res) {
+        if (verifyErrorValidator.getResult(req)) {
             return clienteController.index(req, res);
         }
 
@@ -172,35 +125,3 @@ clienteRouter.get('/cliente/delete',
 
 module.exports = clienteRouter;
 
-
-/*clienteRouter.get('/cliente/page',
-    checkSchema({
-        num: {
-            in: ['query'],
-            escape: true,
-            trim: true,
-            notEmpty: {
-                errorMessage: "não é permitido pagina vazia"
-            },
-            isNumeric: {
-                errorMessage: "é permitido apenas numeros"
-            }
-
-        }
-    }),
-    function (req, res) {
-        let errorResult = validationResult(req);
-        if (!errorResult.isEmpty()) {
-            let arrMsgError = errorResult.array();
-            let msg = "";
-            arrMsgError.forEach(msgError => {
-                msg += msgError.msg + " - ";
-            });
-            let dataMsg = { type: "error", title: "erro", text: msg };
-            clienteController.index(req, res, dataMsg);
-            return;
-        }
-
-        clienteController.pagination(req, res);
-    }
-);*/
