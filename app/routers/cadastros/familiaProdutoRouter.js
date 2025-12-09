@@ -82,7 +82,7 @@ familiaProdutoRouter.post('/familiaProduto/edit',
                 errorMessage: "quantidade de caracter não permitido"
             }
         },
-        id_familia_produto: {
+        id_familia: {
             in: ['body'],
             trim: true,
             escape: true,

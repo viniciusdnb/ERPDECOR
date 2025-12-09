@@ -19,7 +19,7 @@ module.exports = {
         options.queryOptions = {
                 where: {
                     [Op.or]: [
-                        { id_familia_produto: { [Op.substring]: req.body.search } },
+                        { id_familia: { [Op.substring]: req.body.search } },
                         { nome_familia: { [Op.substring]: req.body.search } }
                     ]
                 }
@@ -37,14 +37,14 @@ module.exports = {
     edit: async function (req, res) { 
         let options = this.getOptions();
         options.fileNameView = 'edit';
-        options.queryOptions = {where: {id_familia_produto: req.query.id}};
+        options.queryOptions = {where: {id_familia: req.query.id}};
       await  simpleControl.index(req, res, options);
     },
     update: async function (req, res) {
         let options = this.getOptions();
         options.fileNameView = 'main';
         options.queryOptions = {
-            where: {id_familia_produto: req.body.id_familia_produto},
+            where: {id_familia: req.body.id_familia},
             columnsValue: {nome_familia: req.body.nome_familia}
         };
 
@@ -53,7 +53,7 @@ module.exports = {
     delete: async function (req, res) { 
         let options = this.getOptions();
         options.fileNameView = 'main';
-        options.queryOptions = {where:{id_familia_produto: req.query.id}};
+        options.queryOptions = {where:{id_familia: req.query.id}};
         simpleControl.delete(req, res, options);
     }
 }

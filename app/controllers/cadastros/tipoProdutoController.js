@@ -20,7 +20,7 @@ module.exports = {
         options.queryOptions = {
             where: {
                 [Op.or]: [
-                    { id_tipo_produto: { [Op.substring]: req.body.search } },
+                    { id_tipo: { [Op.substring]: req.body.search } },
                     { nome_tipo_produto: { [Op.substring]: req.body.search } }
                 ]
             }
@@ -39,14 +39,14 @@ module.exports = {
     edit: async function (req, res) {
         let options = this.getOptions();
         options.fileNameView = 'edit';
-        options.queryOptions = { where: { id_tipo_produto: req.query.id } };
+        options.queryOptions = { where: { id_tipo: req.query.id } };
         await simpleControl.index(req, res, options);
     },
     update: async function (req, res) {
         let options = this.getOptions();
         options.fileNameView = 'main';
         options.queryOptions = {
-            where: { id_tipo_produto: req.body.id_tipo_produto },
+            where: { id_tipo: req.body.id_tipo },
             columnsValue: { nome_tipo_produto: req.body.nome_tipo_produto }
         };
 
@@ -55,7 +55,7 @@ module.exports = {
     delete: async function (req, res) {
         let options = this.getOptions();
         options.fileNameView = 'main';
-        options.queryOptions = { where: { id_tipo_produto: req.query.id } };
+        options.queryOptions = { where: { id_tipo: req.query.id } };
         simpleControl.delete(req, res, options);
     }
 }

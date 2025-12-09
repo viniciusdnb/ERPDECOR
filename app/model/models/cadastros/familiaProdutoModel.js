@@ -3,7 +3,7 @@ const {DataTypes} = require('sequelize');
 
 const familiaProdutoModel = connect.define(
     'familia_produto',{
-        id_familia_produto:{
+        id_familia:{
             type: DataTypes.INTEGER,
             primaryKey:true,
             autoIncrement: true

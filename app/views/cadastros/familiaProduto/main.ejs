@@ -39,19 +39,19 @@
                         {%>
                         <tr>
                             <td>
-                                <%= familia.id_familia_produto%>
+                                <%= familia.id_familia%>
                             </td>
                             <td>
                                 <%= familia.nome_familia%>
                             </td>
                             <td>
-                                <a href="/familiaProduto/edit?id=<%= familia.id_familia_produto %>">
+                                <a href="/familiaProduto/edit?id=<%= familia.id_familia %>">
                                     <img src="/img/edit-24.png" alt="">
                                 </a>
                                 <a id="delete"
-                                    onclick='perguntar("<%= familia.id_familia_produto %>", "<%= familia.nome_familia %>","familiaProduto")'
+                                    onclick='perguntar("<%= familia.id_familia %>", "<%= familia.nome_familia %>","familiaProduto")'
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    href="<%= familia.id_familia_produto %>">
+                                    href="<%= familia.id_familia %>">
                                     <img src="/img/trash-24.png" alt="">
                                 </a>
                             </td>

@@ -39,19 +39,19 @@
                         {%>
                         <tr>
                             <td>
-                                <%= tipo.id_tipo_produto%>
+                                <%= tipo.id_tipo%>
                             </td>
                             <td>
                                 <%= tipo.nome_tipo_produto%>
                             </td>
                             <td>
-                                <a href="/tipoProduto/edit?id=<%= tipo.id_tipo_produto %>">
+                                <a href="/tipoProduto/edit?id=<%= tipo.id_tipo %>">
                                     <img src="/img/edit-24.png" alt="">
                                 </a>
                                 <a id="delete"
-                                    onclick='perguntar("<%= tipo.id_tipo_produto %>", "<%= tipo.nome_tipo_produto %>","tipoProduto")'
+                                    onclick='perguntar("<%= tipo.id_tipo %>", "<%= tipo.nome_tipo_produto %>","tipoProduto")'
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    href="<%= tipo.id_tipo_produto %>">
+                                    href="<%= tipo.id_tipo %>">
                                     <img src="/img/trash-24.png" alt="">
                                 </a>
                             </td>

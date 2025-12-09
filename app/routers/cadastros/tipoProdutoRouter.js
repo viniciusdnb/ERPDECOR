@@ -84,7 +84,7 @@ tipoProdutoRouter.post('/tipoProduto/edit',
                 errorMessage: "quantidade de caracter não permitido"
             }
         },
-        id_tipo_produto: {
+        id_tipo: {
             in: ['body'],
             trim: true,
             escape: true,

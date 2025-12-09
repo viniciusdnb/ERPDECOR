@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 const tipoProdutoModel = connect.define(
     'tipo_produto', {
-    id_tipo_produto: {
+    id_tipo: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true

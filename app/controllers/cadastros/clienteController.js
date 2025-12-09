@@ -5,7 +5,7 @@ module.exports = {
     getOptions: function () {
         return {
             pathModelView: 'cadastros',
-            nameModel: 'tipoProduto'
+            nameModel: 'cliente'
         };
     },
     index: async function (req, res) {
