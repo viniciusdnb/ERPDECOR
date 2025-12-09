@@ -3,7 +3,7 @@
 const simpleModel = require('../model/simpleModel');
 const msgNotify = require('../msgNotify');
 const sessionMsg = require('../sessionMsg');
-let arrData = null;
+//let arrData = null;
 let queryResult = null
 module.exports = {
     /**
@@ -21,6 +21,8 @@ module.exports = {
             data: { arrData: arrData },
             msg: sessionMsg.getSessionMessage(req)
         });
+         
+        
         sessionMsg.cleanMessage(req);
     },
     /**
@@ -34,7 +36,7 @@ module.exports = {
      * queryOptions: objeto do tipo queryOptions do sequielize omite ou envia o obj
      */
     index: async function (req, res, options) {
-
+        let arrData = null;
         if ('queryOptions' in options) {
             queryResult = await simpleModel.findAll(options.pathModelView, options.nameModel, options.queryOptions);
         } else {
@@ -82,15 +84,15 @@ module.exports = {
 
         if (queryResult.result) {
             sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", `${options.nameModel} cadastrado com sucesso`));
-            
+
             return res.redirect(`/${options.nameModel}`);
         } else {
             sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "Erro desconhecido favor contatar o administrador"));
             return res.redirect(`/${options.nameModel}`);
         }
 
-        
-       
+
+
     },
     /**
      * 
@@ -109,21 +111,21 @@ module.exports = {
      * 
      */
     update: async function (req, res, options) {
-        queryResult = await simpleModel.update(options.pathModelView, options.nameModel, 
+        queryResult = await simpleModel.update(options.pathModelView, options.nameModel,
             options.queryOptions);
-            
+
         if (queryResult.result) {
             sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", `${options.nameModel} cadastrado atualizado com sucesso`));
             return res.redirect(`/${options.nameModel}`);
         } else {
             sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "Erro desconhecido favor contatar o administrador"));
             return res.redirect(`/${options.nameModel}`);
-        }        
+        }
     },
-    delete: async function(req, res, options){
-        queryResult = await simpleModel.delete(options.pathModelView, options.nameModel, 
+    delete: async function (req, res, options) {
+        queryResult = await simpleModel.delete(options.pathModelView, options.nameModel,
             options.queryOptions);
-            
+
         if (queryResult.result) {
             sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", `${options.nameModel} cadastrado excluido com sucesso`));
             return res.redirect(`/${options.nameModel}`);

@@ -1,18 +1,21 @@
 const { Op } = require('sequelize');
 const simpleControl = require('../../libs/controller/simpleControl');
-let options = {
-    pathModelView: 'cadastros',
-    nameModel: 'cliente',
-
-}
 
 module.exports = {
+    getOptions: function () {
+        return {
+            pathModelView: 'cadastros',
+            nameModel: 'tipoProduto'
+        };
+    },
     index: async function (req, res) {
+        let options = this.getOptions();
         options.fileNameView = 'main';
             options.queryOptions = { order: [['nomeCliente', 'ASC']] };
         await simpleControl.index(req, res, options);
     },
     search: async function (req, res) {
+        let options = this.getOptions();
         options.queryOptions = {
             where: {
                 [Op.or]: [
@@ -26,18 +29,21 @@ module.exports = {
 
     },
     create: async function (req, res) {
+        let options = this.getOptions();
         options.columnsValue = { nomeCliente: req.body.nome_cliente }
 
         await simpleControl.create(req, res, options);
 
     },
     edit: async function (req, res) {
+        let options = this.getOptions();
         options.fileNameView = 'edit';
         options.queryOptions = { where: { idCliente: req.query.id } }
         simpleControl.index(req, res, options);
 
     },
     update: async function (req, res) {
+        let options = this.getOptions();
         options.fileNameView = 'main';
         options.queryOptions = {
             where: { idCliente: req.body.id_cliente },
@@ -48,6 +54,7 @@ module.exports = {
 
     },
     delete: async function (req, res) {
+        let options = this.getOptions();
          options.fileNameView = 'main';
          options.queryOptions = { where: { idCliente: req.query.id }}
         simpleControl.delete(req, res, options);

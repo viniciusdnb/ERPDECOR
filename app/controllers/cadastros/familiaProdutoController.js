@@ -1,16 +1,20 @@
 const { Op } = require('sequelize');
 const simpleControl = require('../../libs/controller/simpleControl');
-let options = {
-    pathModelView: 'cadastros',
-    nameModel: 'familiaProduto'    
-};
 
 module.exports = {
+     getOptions: function () {
+        return {
+            pathModelView: 'cadastros',
+            nameModel: 'familiaProduto'
+        };
+    },
     index: async function (req, res) {
+        let options = this.getOptions();
         options.fileNameView = 'main';
         simpleControl.index(req, res, options);
     },
     search: async function (req, res) {
+        let options = this.getOptions();
         options.fileNameView = 'main';
         options.queryOptions = {
                 where: {
@@ -23,6 +27,7 @@ module.exports = {
             await simpleControl.index(req, res, options);
     },
     create: async function (req, res) {
+        let options = this.getOptions();
         options.columnsValue = {
             nome_familia: req.body.nome_familia
         };
@@ -30,11 +35,13 @@ module.exports = {
         await simpleControl.create(req, res, options);
      },
     edit: async function (req, res) { 
+        let options = this.getOptions();
         options.fileNameView = 'edit';
         options.queryOptions = {where: {id_familia_produto: req.query.id}};
       await  simpleControl.index(req, res, options);
     },
     update: async function (req, res) {
+        let options = this.getOptions();
         options.fileNameView = 'main';
         options.queryOptions = {
             where: {id_familia_produto: req.body.id_familia_produto},
@@ -44,6 +51,7 @@ module.exports = {
        await simpleControl.update(req, res, options);
      },
     delete: async function (req, res) { 
+        let options = this.getOptions();
         options.fileNameView = 'main';
         options.queryOptions = {where:{id_familia_produto: req.query.id}};
         simpleControl.delete(req, res, options);

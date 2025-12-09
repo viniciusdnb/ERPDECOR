@@ -1,4 +1,4 @@
-let data = null;
+
 let arrData = null;
 let result = null;
 let dataModel = null;
@@ -15,6 +15,7 @@ module.exports = {
      * result == false -> error
      */
     findAll: async function (pathModel, nameModel, optionQuery = null) {
+        let data = null;
         let model = require(`../../model/models/${pathModel}/${nameModel}model`);
         try {
             optionQuery != null ? dataModel = await model.findAll(optionQuery) : dataModel = await model.findAll();
