@@ -7,7 +7,7 @@ const homeRouter = require('./app/routers/homeRouter');
 const clienteRouter = require('./app/routers/cadastros/clienteRouter');
 const familiaProdutoRouter = require('./app/routers/cadastros/familiaProdutoRouter');
 const tipoProdutoRouter = require('./app/routers/cadastros/tipoProdutoRouter');
-
+const produtoRouter = require('./app/routers/cadastros/produtoRouter');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -28,6 +28,7 @@ app.use('/', homeRouter);
 app.use('/', clienteRouter);
 app.use('/', familiaProdutoRouter);
 app.use('/', tipoProdutoRouter);
+app.use('/', produtoRouter);
 
 app.listen(APP_PORT, function(){
     console.log(`app online in http://localhost:${APP_PORT}`);

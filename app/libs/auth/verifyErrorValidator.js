@@ -11,6 +11,7 @@ module.exports = {
                 msg += msgError.msg + " - ";
             });
 
+            //console.log(arrMsgError);
             if (!req.session.msg) {
                 req.session.msg = msgNotify.getMsgWarning("Atenção", msg)
             }

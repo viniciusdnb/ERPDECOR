@@ -1,0 +1,79 @@
+<div class="container text-center">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">INICIO</a></li>
+            <li class="breadcrumb-item"><a>LISTA DE PRODUTO</a></li>
+            <li class="breadcrumb-item"><a href="/produto/new">NOVO PRODUTO <img src="/img/add-24.png" alt=""></a>
+            </li>
+        </ol>
+    </nav>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container">
+            <form class="d-flex" role="search" action="/produto/search" method="post">
+                <input class="form-control me-2" type="search" placeholder="digite o nome do produto" name="search"
+                    aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">PROCURAR</button>
+                <a href="/produto" class="btn btn-outline-danger" type="submit">LIMPAR</a>
+            </form>
+
+        </div>
+    </nav>
+</div>
+<% console.log(data.arrData[0])
+if(msg !=null){  %>
+    <script>
+        getNotify("<%= msg.title %>", "<%= msg.text %>", "<%= msg.type %>", "<%= msg.position %>", "<%= msg.duration %>")
+    </script>
+    <%}%>
+
+        <main class="container">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>CLIENTE</th>
+                         <th>CODIGO CLIENTE</th>
+                         <th>FAMILIA</th>
+                         <th>TIPO</th>
+                        <th>OPÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                    if(data.arrData !== null) { 
+                        
+                        data.arrData.forEach(produto=>
+                        {
+                            //console.log(produto.produto_x_familia[0]);
+                            %>
+                        <tr>
+                            <td>
+                                <%= produto.id_produto%>
+                            </td>
+                             <td>
+                                <%= produto.codigo_cliente%>
+                            </td>
+                            <td>
+                                <%= produto.nome_produto%>
+                            </td>
+
+                            <td>
+                                <a href="/produto/edit?id=<%= produto.id_produto %>">
+                                    <img src="/img/edit-24.png" alt="">
+                                </a>
+                                <a id="delete"
+                                    onclick='perguntar("<%= produto.id_produto %>", "<%= produto.nome_produto %>","produto")'
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    href="<%= produto.id_produto %>">
+                                    <img src="/img/trash-24.png" alt="">
+                                </a>
+                            </td>
+                        </tr>
+                        <%}) } %>
+                </tbody>
+            </table>
+          
+            
+        </main>
+        
+<%- include('../../layout/modals/modalDelete') %>
