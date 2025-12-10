@@ -19,7 +19,7 @@
         </div>
     </nav>
 </div>
-<% console.log(data.arrData[0])
+<% 
 if(msg !=null){  %>
     <script>
         getNotify("<%= msg.title %>", "<%= msg.text %>", "<%= msg.type %>", "<%= msg.position %>", "<%= msg.duration %>")
@@ -44,19 +44,25 @@ if(msg !=null){  %>
                         
                         data.arrData.forEach(produto=>
                         {
-                            //console.log(produto.produto_x_familia[0]);
+                           
                             %>
                         <tr>
                             <td>
                                 <%= produto.id_produto%>
                             </td>
                              <td>
-                                <%= produto.codigo_cliente%>
-                            </td>
-                            <td>
                                 <%= produto.nome_produto%>
                             </td>
-
+                            <td>
+                                 <%= produto.codigo_cliente%>
+                               
+                            </td>
+                            <td>
+                                <%= produto.produto_x_familia[0].familia_produto.nome_familia %>
+                            </td>
+                            <td>
+                                <%= produto.produto_x_tipos[0].tipo_produto.nome_tipo_produto %>    
+                            </td>
                             <td>
                                 <a href="/produto/edit?id=<%= produto.id_produto %>">
                                     <img src="/img/edit-24.png" alt="">

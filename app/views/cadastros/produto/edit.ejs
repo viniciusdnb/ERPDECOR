@@ -2,38 +2,92 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">INICIO</a></li>
-            <li class="breadcrumb-item"><a href="/cliente">LISTA DE CLIENTE</a></li>
-            <li class="breadcrumb-item"><a>EDITAR CLIENTE</a></li>
-            <li class="breadcrumb-item"><a href="/cliente/new">NOVO CLIENTE <img src="img/add-24.png" alt=""></a>
+            <li class="breadcrumb-item"><a href="/produto">LISTA DE PRODUTO</a></li>
+            <li class="breadcrumb-item"><a>EDITAR PRODUTO</a>
             </li>
         </ol>
     </nav>
 </div>
+<br>
 <main class="container">
-    <% 
-   
-    var arrCliente= data.arrData;
-         arrCliente.forEach(el=> {
-            cliente = el;
-        });
-
-        %>
-        <form action="/cliente/edit/" method="post" class="row g-3">
-            <input type="hidden" value="<%=cliente.idCliente%>" name="id_cliente">
-            
-                <div class="col">
-                    <label class="form-label">NOME CLIENTE</label>
-                    <input type="text" class="form-control" value="<%=cliente.nomeCliente%>" name="nome_cliente">
+    <form action="/produto/edit" method="post" class="row g-3">
+        <div class="row">
+            <div class="col">
+                <input type="hidden" value="<%= data.arrData.arrProdutos[0].id_produto %>" name="id_produto">
+                <label class="form-label">NOME PRODUTO</label>
+                <input type="text" class="form-control" value="<%= data.arrData.arrProdutos[0].nome_produto %>"
+                    name="nome_produto">
+            </div>
+            <div class="col">
+                <label class="form-label">CODIGO CLIENTE</label>
+                <input type="text" class="form-control" value="<%= data.arrData.arrProdutos[0].codigo_cliente %>"
+                    name="codigo_cliente">
+            </div>
+            <div class="col p-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkChecked" name="ativo"
+                        <%=data.arrData.arrProdutos[0].ativo==true ? "checked" : "" %>
+                    >
+                    <label class="form-check-label" for="checkChecked">
+                        ATIVO
+                    </label>
                 </div>
-                <div class="row g-3">
-                    <div class="col-1">
-                         <input type="submit" class="btn btn-success" value="SALVAR">
-                    </div>
-                    <div class="col-1">
-                         <a class="btn btn-secondary" href="/cliente" >CANCELAR</a>
-                    </div>                   
-                </div>
-            
-        </form>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="form-label">TIPO</label>
+                <input type="hidden" name="id_produto_tipo" value="<%= data.arrData.arrProdutos[0].produto_x_tipos[0].id_produto_tipo %>">
+                <select id="select-tipo" name="id_tipo" required>
+                    <option value=""></option>
+                    <% var arrTipos=data.arrData.arrTipos; arrTipos.forEach(tipo=>{%>
+                        <option value="<%=tipo.id_tipo %>"
+                            <%=data.arrData.arrProdutos[0].produto_x_tipos[0].id_tipo==tipo.id_tipo ? "selected" : "" %>
+                            >
+                            <%= tipo.nome_tipo_produto%>
+                        </option>
+                        <%}) %>
+                </select>
+            </div>
+            <div class="col">
+                <label class="form-label">FAMILIA</label>
+                <input type="hidden" name="id_produto_familia" value="<%= data.arrData.arrProdutos[0].produto_x_familia[0].id_produto_familia %>">
+                <select id="select-familia" name="id_familia">
+                    <option value=""></option>
+                    <% var arrFamilias=data.arrData.arrFamilias; arrFamilias.forEach(familia=>{%>
+                        <option value="<%=familia.id_familia %>"
+                            <%=data.arrData.arrProdutos[0].produto_x_familia[0].id_familia==familia.id_familia
+                            ? "selected" : "" ; %>
+                            >
+                            <%= familia.nome_familia%>
+                        </option>
+                        <%})%>
+                </select>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-1">
+                <input type="submit" class="btn btn-success" required value="SALVAR">
+            </div>
+            <div class="col-1">
+                <a class="btn btn-secondary" href="/produto">CANCELAR</a>
+            </div>
+        </div>
+    </form>
 </main>
+
+<script>
+    new TomSelect("#select-tipo", {
+        allowEmptyOption: true,
+        sortField: {
+            field: "text"
+        }
+    });
+
+    new TomSelect("#select-familia", {
+        allowEmptyOption: true,
+        sortField: {
+            field: "text"
+        }
+    });
+</script>

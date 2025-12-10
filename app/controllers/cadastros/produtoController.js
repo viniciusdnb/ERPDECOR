@@ -94,7 +94,7 @@ module.exports = {
 
         } catch (error) {
             sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "erro desconhecido contate o administrador"));
-            this.index(req, res);
+            return this.index(req, res);
             /*return res.render('cadastros/produto/index', {
                 fileName: 'main',
                 data: { arrData: null },
@@ -133,15 +133,141 @@ module.exports = {
                 ativo: true
             })
         } catch (error) {
-            console.log(error);
+
             sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "não foi possivel adicionar um produto no momento. contate o administrador"));
-            return this.index(req, res)
+            return this.index(req, res);
         }
 
-        sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Erro", "produto inserido com sucesso"));
+        sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", "produto inserido com sucesso"));
         return this.index(req, res);
     },
-    edit: async function (req, res) { },
-    update: async function (req, res) { },
-    delete: async function (req, res) { }
+    edit: async function (req, res) {
+
+        let produtosModel = null;
+        let familiaModel = null;
+        let tipoModel = null;
+        try {
+            produtosModel = await produtoModel.findAll({
+                include: [
+                    {
+                        model: produtoXfamiliaModel,
+
+                    },
+                    {
+                        model: produtoXtipoModel,
+
+                    },
+
+                ],
+                where: { id_produto: req.query.id }
+            });
+
+            familiaModel = await familiaProdutoModel.findAll();
+            tipoModel = await tipoProdutoModel.findAll();
+
+
+        } catch (error) {
+            console.log(error)
+            sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "não foi possivel encontrar o registro. contate o administrador"));
+            return this.index(req, res);
+        }
+
+        let arrProdutos = JSON.parse(JSON.stringify(produtosModel, null));
+        let arrFamilias = JSON.parse(JSON.stringify(familiaModel, null));
+        let arrTipos = JSON.parse(JSON.stringify(tipoModel, null));
+        let data = {
+            "arrProdutos": arrProdutos,
+            "arrFamilias": arrFamilias,
+            "arrTipos": arrTipos,
+        }
+        simpleControl.render(req, res,
+            this.getOption().pathModelView,
+            this.getOption().nameModel,
+            "edit",
+            data
+        );
+
+    },
+    update: async function (req, res) {
+
+        let id_produto = req.body.id_produto;
+        let nome_produto = req.body.nome_produto
+        let codigo_cliente = req.body.codigo_cliente
+        let id_tipo = req.body.id_tipo
+        let id_familia = req.body.id_familia
+        let ativo = req.body.ativo == 'on' ? true : false;
+        let id_produto_tipo = req.body.id_produto_tipo;
+        let id_produto_familia = req.body.id_produto_familia;
+
+        try {
+            await produtoModel.update({
+                nome_produto: nome_produto,
+                codigo_cliente: codigo_cliente,
+                ativo: ativo
+            }, {
+                where: {
+                    id_produto: id_produto
+                }
+            });
+
+
+            await produtoXfamiliaModel.update({
+                id_familia: id_familia,
+                id_produto: id_produto,
+            }, {
+                where: {
+                    id_produto_familia: id_produto_familia
+                }
+            });
+            await produtoXtipoModel.update({
+                id_tipo: id_tipo,
+                id_produto: id_produto,
+            }, {
+                where: {
+                    id_produto_tipo: id_produto_tipo
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "não foi possivel atualizar o produto no momento. contate o administrador"));
+            return this.index(req, res);
+        }
+
+        sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", "produto atualizado com sucesso"));
+        return this.index(req, res);
+    },
+    delete: async function (req, res) {
+        let id_produto = req.query.id;
+        try {
+            await produtoXfamiliaModel.destroy(
+                {
+                    where: {
+                        id_produto: id_produto
+                    }
+                }
+            );
+            await produtoXtipoModel.destroy(
+                {
+                    where: {
+                        id_produto: id_produto
+                    }
+                }
+            )
+            await produtoModel.destroy({
+                where: {
+                    id_produto: id_produto
+                }
+            });
+
+
+            
+        } catch (error) {
+            console.log(error)
+            sessionMsg.setMessage(req, msgNotify.getMsgError("Erro", "não foi possivel excluir o produto no momento. contate o administrador"));
+            return this.index(req, res);
+        }
+
+        sessionMsg.setMessage(req, msgNotify.getMsgSuccess("Sucesso", "produto excluido  com sucesso"));
+        return this.index(req, res);
+    }
 }
