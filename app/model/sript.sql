@@ -43,3 +43,11 @@ CREATE TABLE produto_x_tipo(
     FOREIGN KEY (id_tipo) REFERENCES tipo_produto(id_tipo),
     FOREIGN key (id_produto) REFERENCES produto(id_produto)
 ) ENGINE = InnoDB;
+
+CREATE TABLE operador (
+    id_operador INT PRIMARY KEY AUTO_INCREMENT,
+    nome_operador VARCHAR(100),
+    ativo BOOLEAN,
+    createdAt DATE,
+    updateAt DATE,
+) ENGINE = InnoDB;
